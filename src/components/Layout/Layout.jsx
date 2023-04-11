@@ -1,46 +1,28 @@
 import * as React from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
-import {
-  container,
-  heading,
-  navLinks,
-  navLinkItem,
-  navLinkText,
-  siteTitle,
-} from "./layout.module.css"
+import { useState } from "react"
+import Navbar from "./Header/Navbar"
+import { CssBaseline, useMediaQuery } from "@mui/material"
+import { Box } from "@mui/material"
+import Footer from "./Footer/Footer"
 
-const Layout = ({ pageTitle, children }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+const Layout = ({ children }) => {
+  const isNonMobile = useMediaQuery("(min-width: 600px)")
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   return (
-    <div className={container}>
-      <header className={siteTitle}>{data.site.siteMetadata.title}</header>
-      <nav>
-        <ul className={navLinks}>
-          <li className={navLinkItem}>
-            <Link to="/" className={navLinkText}>
-              Home
-            </Link>
-          </li>
-          <li className={navLinkItem}>
-            <Link to="/about" className={navLinkText}>
-              About
-            </Link>
-          </li>
-        </ul>
-      </nav>
-      <main>
-        <h1 className={heading}>{pageTitle}</h1>
-        {children}
-      </main>
-    </div>
+    <>
+      <CssBaseline />
+
+      <Box display={isNonMobile ? null : "block"} width="100%" height="100%">
+        <Box flexGrow={1}>
+          <Navbar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+          {children}
+        </Box>
+      </Box>
+      <Footer />
+    </>
   )
 }
 

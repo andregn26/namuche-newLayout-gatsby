@@ -7,7 +7,7 @@ import Seo from '../components/Seo/Seo'
 const IndexPage = () => {
   return (
     <main>
-      <Layout pageTitle="Home Page">
+      <Layout>
         <p>I'm making this by following the Gatsby Tutorial.</p>
         <StaticImage alt='image-test' src="../assets/images/archive_headerimage.png" />
       </Layout>
